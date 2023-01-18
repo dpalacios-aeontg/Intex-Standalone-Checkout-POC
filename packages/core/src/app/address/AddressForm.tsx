@@ -28,6 +28,7 @@ export interface AddressFormProps {
     onAutocompleteToggle?(state: { inputValue: string; isOpen: boolean }): void;
     onChange?(fieldName: string, value: string | string[]): void;
     setFieldValue?(fieldName: string, value: string | string[]): void;
+    disabledFields?: boolean;
 }
 
 const LABEL: AddressKeyMap = {
@@ -93,6 +94,7 @@ class AddressForm extends Component<AddressFormProps & WithLanguageProps> {
             onAutocompleteToggle,
             shouldShowSaveAddress,
             useFloatingLabel,
+            disabledFields
         } = this.props;
 
         return (
@@ -124,6 +126,7 @@ class AddressForm extends Component<AddressFormProps & WithLanguageProps> {
                                         parentFieldName={fieldName}
                                         supportedCountries={countriesWithAutocomplete}
                                         useFloatingLabel={useFloatingLabel}
+                                        disabledFields={disabledFields}
                                     />
                                 );
                             }
@@ -146,6 +149,7 @@ class AddressForm extends Component<AddressFormProps & WithLanguageProps> {
                                         )
                                     }
                                     onChange={this.handleDynamicFormFieldChange(addressFieldName)}
+                                    disabledFields={disabledFields}
                                     parentFieldName={
                                         field.custom
                                             ? fieldName

@@ -1,10 +1,9 @@
-import React, { FunctionComponent, memo } from 'react';
+import { FunctionComponent, memo } from 'react';
 
 import { withCheckout } from '../checkout';
 import OrderSummaryDrawer from '../order/OrderSummaryDrawer';
 
 import { WithCheckoutCartSummaryProps } from './CartSummary';
-import EditLink from './EditLink';
 import mapToCartSummaryProps from './mapToCartSummaryProps';
 import withRedeemable from './withRedeemable';
 
@@ -14,8 +13,7 @@ const CartSummaryDrawer: FunctionComponent<WithCheckoutCartSummaryProps> = ({
 }) =>
     withRedeemable(OrderSummaryDrawer)({
         ...props,
-        cartUrl,
-        headerLink: <EditLink className="modal-header-link cart-modal-link" url={cartUrl} />,
+        cartUrl
     });
 
 export default withCheckout(mapToCartSummaryProps)(memo(CartSummaryDrawer));

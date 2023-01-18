@@ -120,6 +120,34 @@ class SingleShippingForm extends PureComponent<
         );
     }
 
+    componentDidMount(): void {
+        if(window.location.search.length > 0){
+            const urlParams: any = new URLSearchParams(window.location.search);
+    
+            const shippingAddress: any = {
+                firstName: urlParams.get('first_name') || '',
+                lastName: urlParams.get('last_name') || '',
+                company: '',
+                address1: urlParams.get('address') || '',
+                address2: '',
+                city: urlParams.get('city') || '',
+                stateOrProvince: '',
+                stateOrProvinceCode: urlParams.get('state') || '',
+                country: '',
+                countryCode: urlParams.get('country') || '',
+                postalCode: urlParams.get('zipcode') || '',
+                phone: '',
+                customFields: []
+            }
+
+            this.props.setValues({
+                billingSameAsShipping: true,
+                orderComment: '',
+                shippingAddress,
+            });
+        }
+    }
+
     render(): ReactNode {
         const {
             addresses,
@@ -159,6 +187,7 @@ class SingleShippingForm extends PureComponent<
                         countries={countries}
                         countriesWithAutocomplete={countriesWithAutocomplete}
                         deinitialize={deinitialize}
+                        disabledFields={false}
                         formFields={this.getFields(addressForm && addressForm.countryCode)}
                         googleMapsApiKey={googleMapsApiKey}
                         hasRequestedShippingOptions={hasRequestedShippingOptions}

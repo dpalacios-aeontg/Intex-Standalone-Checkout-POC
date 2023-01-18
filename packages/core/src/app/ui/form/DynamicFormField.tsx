@@ -27,6 +27,12 @@ export interface DynamicFormFieldProps {
     label?: ReactNode;
     useFloatingLabel?: boolean;
     onChange?(value: string | string[]): void;
+    disabledFields?: boolean;
+}
+
+export interface FieldPropsExtended {
+    onChange?(value: string): void;
+    disabledFields?: boolean;
 }
 
 const DynamicFormField: FunctionComponent<DynamicFormFieldProps> = ({
@@ -40,7 +46,7 @@ const DynamicFormField: FunctionComponent<DynamicFormFieldProps> = ({
         options,
         max,
         min,
-        maxLength,
+        maxLength
     },
     parentFieldName,
     onChange,
@@ -50,6 +56,7 @@ const DynamicFormField: FunctionComponent<DynamicFormFieldProps> = ({
     label,
     extraClass,
     useFloatingLabel,
+    disabledFields
 }) => {
     const fieldInputId = inputId || name;
     const fieldName = parentFieldName ? `${parentFieldName}.${name}` : name;
@@ -96,11 +103,12 @@ const DynamicFormField: FunctionComponent<DynamicFormFieldProps> = ({
     }, [fieldType, type, secret, name]);
 
     const renderInput = useCallback(
-        ({ field }: FieldProps<string>) => (
+        ({ disabledFields, field }: FieldProps<string> & FieldPropsExtended) => (
             <DynamicInput
                 {...field}
                 aria-labelledby={`${fieldInputId}-label ${fieldInputId}-field-error-message`}
                 autoComplete={autocomplete}
+                disabled={disabledFields}
                 fieldType={dynamicFormFieldType}
                 id={fieldInputId}
                 max={max}
@@ -142,6 +150,7 @@ const DynamicFormField: FunctionComponent<DynamicFormFieldProps> = ({
                 />
             ) : (
                 <FormField
+                    disabledFields={disabledFields}
                     id={fieldInputId}
                     input={renderInput}
                     label={labelComponent}

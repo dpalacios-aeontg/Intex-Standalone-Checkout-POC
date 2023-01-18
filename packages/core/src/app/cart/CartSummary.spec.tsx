@@ -25,7 +25,7 @@ describe('CartSummary Component', () => {
         jest.spyOn(checkoutService.getState().data, 'getConfig').mockReturnValue(getStoreConfig());
     });
 
-    it('renders OrderSummary with Edit Cart link', () => {
+    it('renders OrderSummary', () => {
         Object.defineProperty(window, 'location', {
             value: {
                 pathname: '/checkout',
@@ -40,7 +40,7 @@ describe('CartSummary Component', () => {
             </CheckoutProvider>,
         );
 
-        expect(component.find(OrderSummary).prop('headerLink')).toMatchSnapshot();
+        expect(component.find(OrderSummary).prop('headerLink')).not.toBeTruthy();
     });
 
     it('renders OrderSummary without the Edit Cart link for Buy Now carts', () => {

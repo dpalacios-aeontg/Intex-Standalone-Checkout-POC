@@ -23,7 +23,6 @@ export interface GuestFormProps {
     useFloatingLabel?: boolean;
     onChangeEmail(email: string): void;
     onContinueAsGuest(data: GuestFormValues): void;
-    onShowLogin(): void;
 }
 
 export interface GuestFormValues {
@@ -39,7 +38,6 @@ const GuestForm: FunctionComponent<
     continueAsGuestButtonLabelId,
     isLoading,
     onChangeEmail,
-    onShowLogin,
     privacyPolicyUrl,
     requiresMarketingConsent,
     useFloatingLabel,
@@ -92,20 +90,6 @@ const GuestForm: FunctionComponent<
                         </Button>
                     </div>
                 </div>
-
-                {!isLoading && (
-                    <p>
-                        <TranslatedString id="customer.login_text" />{' '}
-                        <a
-                            data-test="customer-continue-button"
-                            id="checkout-customer-login"
-                            onClick={onShowLogin}
-                        >
-                            <TranslatedString id="customer.login_action" />
-                        </a>
-                    </p>
-                )}
-
                 {checkoutButtons}
             </Fieldset>
         </Form>

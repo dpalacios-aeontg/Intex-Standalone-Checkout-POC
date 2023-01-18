@@ -2,7 +2,6 @@ import classNames from 'classnames';
 import React, { Component, ReactNode } from 'react';
 import { CSSTransition } from 'react-transition-group';
 
-import { preventDefault } from '../common/dom';
 import { ShopperCurrency } from '../currency';
 
 export interface OrderSummaryPriceProps {
@@ -56,8 +55,6 @@ class OrderSummaryPrice extends Component<OrderSummaryPriceProps, OrderSummaryPr
     render(): ReactNode {
         const {
             amount,
-            actionLabel,
-            onActionTriggered,
             children,
             className,
             currencyCode,
@@ -94,17 +91,6 @@ class OrderSummaryPrice extends Component<OrderSummaryPriceProps, OrderSummaryPr
                             {currencyCode && (
                                 <span className="cart-priceItem-currencyCode">
                                     {`(${currencyCode}) `}
-                                </span>
-                            )}
-                            {onActionTriggered && actionLabel && (
-                                <span className="cart-priceItem-link">
-                                    <a
-                                        data-test="cart-price-callback"
-                                        href="#"
-                                        onClick={preventDefault(onActionTriggered)}
-                                    >
-                                        {actionLabel}
-                                    </a>
                                 </span>
                             )}
                         </span>

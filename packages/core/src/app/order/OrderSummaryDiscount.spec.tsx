@@ -47,10 +47,6 @@ describe('OrderSummaryDiscount', () => {
             expect(discount.render()).toMatchSnapshot();
         });
 
-        it('renders gift certificate code', () => {
-            expect(discount.find('[data-test="cart-price-code"]').text()).toBe('ABCDFE');
-        });
-
         it('renders remaining label', () => {
             expect(discount.find('[data-test="cart-price-remaining"]').text()).toContain(
                 'Remaining:',

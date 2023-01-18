@@ -33,7 +33,7 @@ describe('CartSummary Component', () => {
         );
     });
 
-    it('renders OrderSummaryDrawer with Edit Cart link', () => {
-        expect(component.find(OrderSummaryDrawer).prop('headerLink')).toMatchSnapshot();
+    it('renders OrderSummaryDrawer without Edit Cart link', () => {
+        expect(component.find(OrderSummaryDrawer).prop('headerLink')).not.toBeTruthy();
     });
 });

@@ -205,7 +205,6 @@ class Customer extends Component<CustomerProps & WithCheckoutCustomerProps & Ana
                     isLoading={ isContinuingAsGuest || isInitializing || isExecutingPaymentMethodCheckout }
                     onChangeEmail={ this.handleChangeEmail }
                     onContinueAsGuest={ this.handleContinueAsGuest }
-                    onShowLogin={ this.handleShowLogin }
                     privacyPolicyUrl={ privacyPolicyUrl }
                     requiresMarketingConsent={ requiresMarketingConsent }
                     step={ step }
@@ -231,7 +230,6 @@ class Customer extends Component<CustomerProps & WithCheckoutCustomerProps & Ana
                 }
                 onChangeEmail={this.handleChangeEmail}
                 onContinueAsGuest={this.handleContinueAsGuest}
-                onShowLogin={this.handleShowLogin}
                 privacyPolicyUrl={privacyPolicyUrl}
                 requiresMarketingConsent={requiresMarketingConsent}
                 useFloatingLabel={useFloatingLabel}
@@ -477,12 +475,6 @@ class Customer extends Component<CustomerProps & WithCheckoutCustomerProps & Ana
         const { analyticsTracker } = this.props;
         this.draftEmail = email;
         analyticsTracker.customerEmailEntry(email);
-    };
-
-    private handleShowLogin: () => void = () => {
-        const { onChangeViewType = noop } = this.props;
-
-        onChangeViewType(CustomerViewType.Login);
     };
 
     private executePaymentMethodCheckoutOrContinue: () => void = async () => {

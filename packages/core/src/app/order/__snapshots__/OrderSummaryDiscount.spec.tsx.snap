@@ -30,12 +30,6 @@ exports[`OrderSummaryDiscount when discount has code and remaining balance match
     >
       Remaining: $2.24
     </span>
-    <span
-      class="cart-priceItem-postFix optimizedCheckout-contentSecondary"
-      data-test="cart-price-code"
-    >
-      ABCDFE
-    </span>
   </div>
 </div>
 `;

@@ -17,12 +17,14 @@ export interface BasicFormFieldProps extends FieldConfig {
     className?: string;
     testId?: string;
     onChange?(value: any): void;
+    disabledFields?: boolean
 }
 
 const BasicFormField: FunctionComponent<BasicFormFieldProps> = ({
     additionalClassName,
     className,
     component,
+    disabledFields,
     render,
     testId,
     onChange,
@@ -34,13 +36,14 @@ const BasicFormField: FunctionComponent<BasicFormFieldProps> = ({
                 {...props}
                 additionalClassName={additionalClassName}
                 className={className}
+                disabledFields={disabledFields}
                 component={component}
                 onChange={onChange}
                 render={render}
                 testId={testId}
             />
         ),
-        [additionalClassName, className, component, render, testId, onChange],
+        [additionalClassName, className, disabledFields, component, render, testId, onChange],
     );
 
     return <Field {...rest} render={renderInnerField} />;
@@ -49,18 +52,19 @@ const BasicFormField: FunctionComponent<BasicFormFieldProps> = ({
 type InnerFieldProps = Omit<BasicFormFieldProps, keyof FieldConfig> & InnerFieldInputProps;
 
 const InnerField: FunctionComponent<InnerFieldProps> = memo(
-    ({ additionalClassName, component, field, form, onChange, render, testId }) => {
+    ({ additionalClassName, component, disabledFields, field, form, onChange, render, testId }) => {
         const input = useMemo(
             () => (
                 <InnerFieldInput
                     component={component}
+                    disabledFields={disabledFields}
                     field={field}
                     form={form}
                     onChange={onChange}
                     render={render}
                 />
             ),
-            [field, form, onChange, component, render],
+            [field, form, onChange, component, disabledFields, render],
         );
 
         return (
@@ -85,6 +89,7 @@ const InnerField: FunctionComponent<InnerFieldProps> = memo(
 type InnerFieldInputProps = FieldProps &
     Pick<FieldConfig, 'component' | 'render'> & {
         onChange?(value: string): void;
+        disabledFields?: boolean;
     };
 
 class InnerFieldInput extends Component<InnerFieldInputProps> {
