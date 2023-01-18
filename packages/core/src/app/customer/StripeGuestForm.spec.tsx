@@ -110,21 +110,6 @@ describe('StripeGuestForm', () => {
             .toBe(true);
     });
 
-    it('notifies when user clicks on "sign in" button', () => {
-        const handleShowLogin = jest.fn();
-        const component = mount(
-            <TestComponent
-                onShowLogin={ handleShowLogin }
-            />
-        );
-
-        component.find('[data-test="customer-continue-button"]')
-            .simulate('click');
-
-        expect(handleShowLogin)
-            .toHaveBeenCalled();
-    });
-
     it('renders newsletter field if store allows newsletter subscription', () => {
         const component = mount(
             <TestComponent
@@ -184,15 +169,5 @@ describe('StripeGuestForm', () => {
         );
 
         expect(component.find('[data-test="customer-continue-button"]')).toHaveLength(0);
-    });
-
-    it('shows different action button label if another label id was provided', () => {
-        const component = mount(
-            <TestComponent
-                continueAsGuestButtonLabelId="customer.continue"
-            />
-        );
-
-        expect(component.find('[data-test="customer-continue-button"]').text()).not.toBe('Continue as guest');
     });
 });

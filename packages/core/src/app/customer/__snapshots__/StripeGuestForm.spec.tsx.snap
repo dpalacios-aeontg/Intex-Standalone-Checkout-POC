@@ -63,13 +63,6 @@ Array [
               />
             </div>
           </div>
-          <p>
-             
-            <a
-              data-test="customer-continue-button"
-              id="checkout-customer-login"
-            />
-          </p>
         </div>
       </fieldset>
     </div>

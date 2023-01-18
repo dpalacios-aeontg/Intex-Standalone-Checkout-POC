@@ -36,15 +36,6 @@ const OrderSummaryDiscount: FunctionComponent<OrderSummaryDiscountProps> = ({
                 <ShopperCurrency amount={remaining} />
             </span>
         )}
-
-        {code && (
-            <span
-                className="cart-priceItem-postFix optimizedCheckout-contentSecondary"
-                data-test="cart-price-code"
-            >
-                {code}
-            </span>
-        )}
     </OrderSummaryPrice>
 );
 

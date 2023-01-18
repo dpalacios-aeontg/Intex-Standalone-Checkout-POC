@@ -90,6 +90,24 @@ export function mapToShippingOptions(
     const methodId = getShippingMethodId(checkout);
     const { shippingQuoteFailedMessage } = config.checkoutSettings;
 
+    // console.log({consignments});
+    if(consignments?.length && !!consignments[0])
+    {
+        const { availableShippingOptions } = consignments[0];
+        if(availableShippingOptions?.length)
+        {
+            const expressShipping = availableShippingOptions.find( option => option.description === 'FedEx (FedEx Express Saver)' );
+            const standardShipping = availableShippingOptions.find( option => option.description === 'FedEx (Ground Home Delivery)' );
+
+            if(expressShipping && standardShipping)
+            {
+                // const delta = Math.ceil((expressShipping.cost - standardShipping.cost) * 100) / 100; // Round to nearest hundredth
+                // console.log({delta});
+                // Create coupon
+            }
+        }
+    }
+
     return {
         cart,
         consignments,

@@ -38,6 +38,7 @@ export interface ShippingAddressProps {
     onFieldChange(name: string, value: string): void;
     onUnhandledError?(error: Error): void;
     onUseNewAddress(): void;
+    disabledFields?: boolean;
 }
 
 const ShippingAddress: FunctionComponent<ShippingAddressProps> = (props) => {
@@ -61,6 +62,7 @@ const ShippingAddress: FunctionComponent<ShippingAddressProps> = (props) => {
         onUnhandledError = noop,
         isShippingStepPending,
         useFloatingLabel,
+        disabledFields
     } = props;
 
     const { setSubmitted } = useContext(FormContext);
@@ -140,6 +142,7 @@ const ShippingAddress: FunctionComponent<ShippingAddressProps> = (props) => {
             consignments={consignments}
             countries={countries}
             countriesWithAutocomplete={countriesWithAutocomplete}
+            disabledFields={disabledFields}
             formFields={formFields}
             googleMapsApiKey={googleMapsApiKey}
             isLoading={isLoading}

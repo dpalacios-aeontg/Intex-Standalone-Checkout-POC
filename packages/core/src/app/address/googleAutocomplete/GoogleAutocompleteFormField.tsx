@@ -24,6 +24,7 @@ export interface GoogleAutocompleteFormFieldProps {
     onSelect(place: google.maps.places.PlaceResult, item: AutocompleteItem): void;
     onToggleOpen?(state: { inputValue: string; isOpen: boolean }): void;
     onChange(value: string, isOpen: boolean): void;
+    disabledFields?: boolean;
 }
 
 const GoogleAutocompleteFormField: FunctionComponent<GoogleAutocompleteFormFieldProps> = ({
@@ -37,6 +38,7 @@ const GoogleAutocompleteFormField: FunctionComponent<GoogleAutocompleteFormField
     onChange,
     onToggleOpen,
     useFloatingLabel,
+    disabledFields
 }) => {
     const fieldName = parentFieldName ? `${parentFieldName}.${name}` : name;
 
@@ -103,6 +105,7 @@ const GoogleAutocompleteFormField: FunctionComponent<GoogleAutocompleteFormField
                 label={renderLabel}
                 name={fieldName}
                 useFloatingLabel={useFloatingLabel}
+                disabledFields={disabledFields}
             />
         </div>
     );

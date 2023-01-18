@@ -20,7 +20,6 @@ describe('GuestForm', () => {
             isLoading: false,
             onChangeEmail: jest.fn(),
             onContinueAsGuest: jest.fn(),
-            onShowLogin: jest.fn(),
             requiresMarketingConsent: false,
         };
 
@@ -113,15 +112,6 @@ describe('GuestForm', () => {
         expect(getEmailError('test@test.com,test@test.com')).resolves.toEqual(invalidEmailMessage);
     });
 
-    it('notifies when user clicks on "sign in" button', () => {
-        const handleShowLogin = jest.fn();
-        const component = mount(<TestComponent onShowLogin={handleShowLogin} />);
-
-        component.find('[data-test="customer-continue-button"]').simulate('click');
-
-        expect(handleShowLogin).toHaveBeenCalled();
-    });
-
     it('calls "onChangeEmail" handler when user changes email address', () => {
         const handleChangeEmail = jest.fn();
         const component = mount(<TestComponent onChangeEmail={handleChangeEmail} />);
@@ -210,13 +200,5 @@ describe('GuestForm', () => {
         const component = mount(<TestComponent isLoading={true} />);
 
         expect(component.find('[data-test="customer-continue-button"]')).toHaveLength(0);
-    });
-
-    it('shows different action button label if another label id was provided', () => {
-        const component = mount(<TestComponent continueAsGuestButtonLabelId="customer.continue" />);
-
-        expect(component.find('[data-test="customer-continue-button"]').text()).not.toBe(
-            'Continue as guest',
-        );
     });
 });

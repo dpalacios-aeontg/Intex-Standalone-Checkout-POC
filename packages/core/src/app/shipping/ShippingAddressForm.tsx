@@ -28,6 +28,7 @@ export interface ShippingAddressFormProps {
     onUseNewAddress(): void;
     onFieldChange(fieldName: string, value: string): void;
     onAddressSelect(address: Address): void;
+    disabledFields?: boolean;
 }
 
 const addressFieldName = 'shippingAddress';
@@ -51,6 +52,7 @@ class ShippingAddressForm extends Component<
             formik: {
                 values: { shippingAddress: formAddress },
             },
+            disabledFields
         } = this.props;
 
         const hasAddresses = addresses && addresses.length > 0;
@@ -83,6 +85,7 @@ class ShippingAddressForm extends Component<
                             countries={countries}
                             countriesWithAutocomplete={countriesWithAutocomplete}
                             countryCode={formAddress && formAddress.countryCode}
+                            disabledFields={disabledFields}
                             fieldName={addressFieldName}
                             formFields={formFields}
                             googleMapsApiKey={googleMapsApiKey}

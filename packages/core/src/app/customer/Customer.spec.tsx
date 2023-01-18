@@ -4,7 +4,6 @@ import {
     CheckoutService,
     createCheckoutService,
     Customer as CustomerData,
-    RequestError,
     StoreConfig,
 } from '@bigcommerce/checkout-sdk';
 import { mount, ReactWrapper } from 'enzyme';
@@ -257,23 +256,6 @@ describe('Customer', () => {
             });
 
             expect(subscribeToNewsletter).not.toHaveBeenCalled();
-        });
-
-        it('changes to login view when "show login" event is received', async () => {
-            const handleChangeViewType = jest.fn();
-            const component = mount(
-                <CustomerTest
-                    onChangeViewType={handleChangeViewType}
-                    viewType={CustomerViewType.Guest}
-                />,
-            );
-
-            await new Promise((resolve) => process.nextTick(resolve));
-            component.update();
-
-            (component.find(GuestForm) as ReactWrapper<GuestFormProps>).prop('onShowLogin')();
-
-            expect(handleChangeViewType).toHaveBeenCalledWith(CustomerViewType.Login);
         });
 
         it('triggers completion callback if customer successfully continued as guest', async () => {

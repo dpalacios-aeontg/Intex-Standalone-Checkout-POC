@@ -27,7 +27,6 @@ export interface StripeGuestFormProps {
     onContinueAsGuest(data: GuestFormValues): void;
     deinitialize(options: CustomerRequestOptions): void;
     initialize(options: CustomerInitializeOptions): void;
-    onShowLogin(): void;
 }
 
 const StripeGuestForm: FunctionComponent<StripeGuestFormProps & FormikProps<GuestFormValues>> = ({
@@ -36,7 +35,6 @@ const StripeGuestForm: FunctionComponent<StripeGuestFormProps & FormikProps<Gues
     initialize,
     deinitialize,
     onChangeEmail,
-    onShowLogin,
     onContinueAsGuest,
     canSubscribe,
     checkoutButtons,
@@ -210,19 +208,6 @@ const StripeGuestForm: FunctionComponent<StripeGuestFormProps & FormikProps<Gues
                                 </Button> }
                             </div>
                         </div>
-                        {
-                            !isLoading && <p>
-                                <TranslatedString id="customer.login_text"/>
-                                { ' ' }
-                                <a
-                                    data-test="customer-continue-button"
-                                    id="checkout-customer-login"
-                                    onClick={ onShowLogin }
-                                >
-                                    <TranslatedString id="customer.login_action"/>
-                                </a>
-                            </p>
-                        }
                         { !authentication && checkoutButtons }
                     </Fieldset>
                 </LoadingOverlay>

@@ -42,7 +42,22 @@ const OrderSummarySubtotals: FunctionComponent<OrderSummarySubtotalsProps> = ({
                 testId="cart-subtotal"
             />
 
-            {(coupons || []).map((coupon, index) => (
+            {!!giftWrappingAmount && (
+                <OrderSummaryPrice
+                    amount={giftWrappingAmount}
+                    label={<TranslatedString id="cart.gift_wrapping_text" />}
+                    testId="cart-gift-wrapping"
+                />
+            )}
+
+            <OrderSummaryPrice
+                amount={shippingAmount}
+                label={<TranslatedString id="cart.shipping_text" />}
+                testId="cart-shipping"
+                zeroLabel={<TranslatedString id="cart.free_text" />}
+            />
+
+            {!!shippingAmount && (coupons || []).map((coupon, index) => (
                 <OrderSummaryDiscount
                     amount={coupon.discountedAmount}
                     code={coupon.code}
@@ -72,21 +87,6 @@ const OrderSummarySubtotals: FunctionComponent<OrderSummarySubtotalsProps> = ({
                     testId="cart-gift-certificate"
                 />
             ))}
-
-            {!!giftWrappingAmount && (
-                <OrderSummaryPrice
-                    amount={giftWrappingAmount}
-                    label={<TranslatedString id="cart.gift_wrapping_text" />}
-                    testId="cart-gift-wrapping"
-                />
-            )}
-
-            <OrderSummaryPrice
-                amount={shippingAmount}
-                label={<TranslatedString id="cart.shipping_text" />}
-                testId="cart-shipping"
-                zeroLabel={<TranslatedString id="cart.free_text" />}
-            />
 
             {!!handlingAmount && (
                 <OrderSummaryPrice

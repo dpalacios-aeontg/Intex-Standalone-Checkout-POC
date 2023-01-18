@@ -16,6 +16,7 @@ export interface FormFieldProps {
     useFloatingLabel?: boolean;
     input(field: FieldProps<string>): ReactNode;
     onChange?(value: string): void;
+    disabledFields?: boolean
 }
 
 const FormField: FunctionComponent<FormFieldProps> = ({
@@ -28,6 +29,7 @@ const FormField: FunctionComponent<FormFieldProps> = ({
     name,
     id,
     useFloatingLabel,
+    disabledFields
 }) => {
     const renderField = useCallback(
         (props) => (
@@ -62,6 +64,7 @@ const FormField: FunctionComponent<FormFieldProps> = ({
     return (
         <BasicFormField
             additionalClassName={additionalClassName}
+            disabledFields={disabledFields}
             name={name}
             onChange={onChange}
             render={renderField}
