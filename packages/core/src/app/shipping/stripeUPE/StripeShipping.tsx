@@ -100,9 +100,9 @@ class StripeShipping extends Component<StripeShippingProps, StripeShippingState>
                                 isBillingSameAsShipping={isBillingSameAsShipping}
                                 isLoading={ isLoading }
                                 isMultiShippingMode={isMultiShippingMode}
+                                isShippingMethodLoading={isShippingMethodLoading}
                                 isStripeAutoStep={this.handleIsAutoStep}
                                 isStripeLoading={this.stripeLoadedCallback}
-                                isShippingMethodLoading={isShippingMethodLoading}
                                 onSubmit={onSubmit}
                                 step={step}
                                 updateAddress={updateAddress}

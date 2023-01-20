@@ -148,8 +148,8 @@ class Shipping extends Component<ShippingProps & WithCheckoutShippingProps, Ship
                 isBillingSameAsShipping={isBillingSameAsShipping}
                 isGuest={ isGuest }
                 isLoading={ isInitializing }
-                isShippingMethodLoading={ this.props.isLoading }
                 isMultiShippingMode={isMultiShippingMode}
+                isShippingMethodLoading={ this.props.isLoading }
                 onMultiShippingChange={ this.handleMultiShippingModeSwitch }
                 onSubmit={this.handleSingleShippingSubmit}
                 shouldShowMultiShipping={ shouldShowMultiShipping }

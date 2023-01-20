@@ -36,8 +36,8 @@ const BasicFormField: FunctionComponent<BasicFormFieldProps> = ({
                 {...props}
                 additionalClassName={additionalClassName}
                 className={className}
-                disabledFields={disabledFields}
                 component={component}
+                disabledFields={disabledFields}
                 onChange={onChange}
                 render={render}
                 testId={testId}

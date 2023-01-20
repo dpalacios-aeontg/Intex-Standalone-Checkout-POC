@@ -4,6 +4,7 @@ import React, { FunctionComponent, memo, } from 'react';
 import { object, string } from 'yup';
 
 import { withLanguage, WithLanguageProps } from '../locale';
+
 import { AppliedRedeemablesProps } from './AppliedRedeemables';
 
 export interface RedeemableFormValues {
@@ -34,7 +35,7 @@ export type RedeemableProps = {
 
 const Redeemable: FunctionComponent<
     RedeemableProps & WithLanguageProps & FormikProps<RedeemableFormValues>
-> = (/*{ ...formProps }*/) => {
+> = (/* { ...formProps } */) => {
 
     // if(formProps?.coupons?.length === 0){
     //     (async () => {
