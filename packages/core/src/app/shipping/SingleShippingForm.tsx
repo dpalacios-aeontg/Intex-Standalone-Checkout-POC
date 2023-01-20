@@ -187,7 +187,7 @@ class SingleShippingForm extends PureComponent<
                         countries={countries}
                         countriesWithAutocomplete={countriesWithAutocomplete}
                         deinitialize={deinitialize}
-                        disabledFields={false}
+                        disabledFields={true}
                         formFields={this.getFields(addressForm && addressForm.countryCode)}
                         googleMapsApiKey={googleMapsApiKey}
                         hasRequestedShippingOptions={hasRequestedShippingOptions}
