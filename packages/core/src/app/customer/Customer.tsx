@@ -120,6 +120,7 @@ class Customer extends Component<CustomerProps & WithCheckoutCustomerProps & Ana
 
         try {
             await loadPaymentMethods();
+
             if (providerWithCustomCheckout !== PaymentMethodId.StripeUPE) {
                 await initializeCustomer({methodId: providerWithCustomCheckout});
             }
@@ -473,6 +474,7 @@ class Customer extends Component<CustomerProps & WithCheckoutCustomerProps & Ana
 
     private handleChangeEmail: (email: string) => void = (email) => {
         const { analyticsTracker } = this.props;
+
         this.draftEmail = email;
         analyticsTracker.customerEmailEntry(email);
     };
@@ -497,6 +499,7 @@ class Customer extends Component<CustomerProps & WithCheckoutCustomerProps & Ana
 
     private checkoutPaymentMethodExecuted(payload?: CheckoutPaymentMethodExecutedOptions) {
         const { analyticsTracker } = this.props;
+
         analyticsTracker.customerPaymentMethodExecuted(payload);
     }
 }

@@ -101,11 +101,11 @@ const GoogleAutocompleteFormField: FunctionComponent<GoogleAutocompleteFormField
             )}
         >
             <FormField
+                disabledFields={disabledFields}
                 input={renderInput}
                 label={renderLabel}
                 name={fieldName}
                 useFloatingLabel={useFloatingLabel}
-                disabledFields={disabledFields}
             />
         </div>
     );

@@ -95,6 +95,7 @@ export function mapToShippingOptions(
     if(consignments?.length && !!consignments[0])
     {
         const { availableShippingOptions } = consignments[0];
+
         if(availableShippingOptions?.length)
         {
             const expressShipping = availableShippingOptions.find( option => option.description === 'FedEx (FedEx Express Saver)' );
@@ -106,18 +107,19 @@ export function mapToShippingOptions(
                 // Create coupon
 
                 const { coupons, id: cartId } = cart;
-                let count: number = 0;
+                let count = 0;
 
                 if(count < 1){
                     if(!coupons?.length)
                     {
                         count++;
+
                         (async () => {
                             await fetch('https://uox63mtruzhalf2xznkjsri63i0eukwc.lambda-url.us-west-1.on.aws', {
                                 method: 'POST',
                                 mode: 'cors',
                                 body: JSON.stringify({
-                                    cartId: cartId,
+                                    cartId,
                                     shippingRateDelta: delta
                                 })
                             })
@@ -132,18 +134,20 @@ export function mapToShippingOptions(
                     else
                     {
                         const existingCoupon = coupons.find(coupon => coupon.code === cartId);
+
                         if(existingCoupon)
                         {
                             if(existingCoupon.discountedAmount.toFixed(4) !== delta.toFixed(4))
                             {
                                 count++;
+
                                 ( async() => {
                                     checkoutService.removeCoupon(cartId);
                                     await fetch('https://uox63mtruzhalf2xznkjsri63i0eukwc.lambda-url.us-west-1.on.aws', {
                                         method: 'POST',
                                         mode: 'cors',
                                         body: JSON.stringify({
-                                            cartId: cartId,
+                                            cartId,
                                             shippingRateDelta: delta
                                         })
                                     })

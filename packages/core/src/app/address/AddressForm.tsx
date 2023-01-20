@@ -117,6 +117,7 @@ class AddressForm extends Component<AddressFormProps & WithLanguageProps> {
                                     <GoogleAutocompleteFormField
                                         apiKey={googleMapsApiKey}
                                         countryCode={countryCode}
+                                        disabledFields={disabledFields}
                                         field={field}
                                         key={field.id}
                                         nextElement={this.nextElement || undefined}
@@ -126,7 +127,6 @@ class AddressForm extends Component<AddressFormProps & WithLanguageProps> {
                                         parentFieldName={fieldName}
                                         supportedCountries={countriesWithAutocomplete}
                                         useFloatingLabel={useFloatingLabel}
-                                        disabledFields={disabledFields}
                                     />
                                 );
                             }
@@ -134,12 +134,13 @@ class AddressForm extends Component<AddressFormProps & WithLanguageProps> {
                             return (
                                 <DynamicFormField
                                     autocomplete={AUTOCOMPLETE[field.name]}
+                                    disabledFields={disabledFields}
                                     extraClass={`dynamic-form-field--${getAddressFormFieldLegacyName(
                                         addressFieldName,
                                     )}`}
                                     field={field}
-                                    inputId={getAddressFormFieldInputId(addressFieldName)}
                                     // stateOrProvince can sometimes be a dropdown or input, so relying on id is not sufficient
+                                    inputId={getAddressFormFieldInputId(addressFieldName)}
                                     key={`${field.id}-${field.name}`}
                                     label={
                                         field.custom ? (
@@ -149,7 +150,6 @@ class AddressForm extends Component<AddressFormProps & WithLanguageProps> {
                                         )
                                     }
                                     onChange={this.handleDynamicFormFieldChange(addressFieldName)}
-                                    disabledFields={disabledFields}
                                     parentFieldName={
                                         field.custom
                                             ? fieldName

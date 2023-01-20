@@ -622,6 +622,7 @@ class Checkout extends Component<
 
     private handleExpanded: (type: CheckoutStepType) => void = (type) => {
         const { analyticsTracker } = this.props;
+
         analyticsTracker.trackStepViewed(type);
     };
 
