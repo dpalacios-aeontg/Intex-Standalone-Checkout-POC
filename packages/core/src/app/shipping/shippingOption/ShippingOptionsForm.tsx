@@ -19,8 +19,14 @@ import ShippingOptionsList from './ShippingOptionsList';
 export type ShippingOptionsFormProps = ShippingOptionsProps & WithCheckoutShippingOptionsProps & AnalyticsContextProps;
 
 class ShippingOptionsForm extends PureComponent<
-    ShippingOptionsFormProps & FormikProps<ShippingOptionsFormValues>
+    ShippingOptionsFormProps & FormikProps<ShippingOptionsFormValues>, { couponApplied: boolean }
 > {
+    constructor(props: any)
+    {
+        super(props)
+        this.state = { couponApplied: false };
+    }
+
     private unsubscribe?: () => void;
 
     componentDidMount(): void {
@@ -29,15 +35,79 @@ class ShippingOptionsForm extends PureComponent<
         this.unsubscribe = subscribeToConsignments(this.selectDefaultShippingOptions);
     }
 
-    componentDidUpdate(): void {
+    async componentDidUpdate(): Promise<void> {
         const {
             analyticsTracker,
             consignments,
             shouldShowShippingOptions
         } = this.props;
-        
+
         if (consignments?.length && shouldShowShippingOptions) {
             analyticsTracker.showShippingMethods();
+
+            const availableShippingOptions = this.props?.consignments?.length ? this.props.consignments[0].availableShippingOptions : null
+
+            if(!this.state.couponApplied)
+            {
+                if(availableShippingOptions?.length){
+                    const expressShipping = availableShippingOptions.find( option => option.description === 'FedEx (FedEx Express Saver)' );
+                    const standardShipping = availableShippingOptions.find( option => option.description === 'FedEx (Ground Home Delivery)' );
+
+                    if(expressShipping && standardShipping)
+                    {
+                        const delta = standardShipping.cost
+
+                        // Create coupon
+                        const { coupons, id: cartId } = this.props.cart;
+
+                        if(!coupons?.length)
+                        {
+                            this.setState({couponApplied: true});
+                            await fetch('http://localhost:3000', {
+                                method: 'POST',
+                                mode: 'cors',
+                                body: JSON.stringify({
+                                    cartId,
+                                    shippingRateDelta: delta
+                                })
+                            })
+                            .then(res => res.json())
+                            .then(data => {
+                                if(data?.code?.length){
+                                    this.props.checkoutService.applyCoupon(data.code);
+                                }
+                            });
+                        }
+                        else
+                        {
+                            const existingCoupon = coupons.find(coupon => coupon.code === cartId);
+
+                            if(existingCoupon)
+                            {
+                                if(existingCoupon.discountedAmount.toFixed(4) !== delta.toFixed(4))
+                                {
+                                    this.setState({couponApplied: true});
+                                    await this.props.checkoutService.removeCoupon(cartId);
+                                    await fetch('http://localhost:3000', {
+                                        method: 'POST',
+                                        mode: 'cors',
+                                        body: JSON.stringify({
+                                            cartId,
+                                            shippingRateDelta: delta
+                                        })
+                                    })
+                                    .then(res => res.json())
+                                    .then(data => {
+                                        if(data?.code?.length){
+                                            this.props.checkoutService.applyCoupon(data.code)
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
