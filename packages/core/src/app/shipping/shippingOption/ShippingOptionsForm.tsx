@@ -63,7 +63,7 @@ class ShippingOptionsForm extends PureComponent<
                         if(!coupons?.length)
                         {
                             this.setState({couponApplied: true});
-                            await fetch('http://localhost:3000', {
+                            await fetch('https://uox63mtruzhalf2xznkjsri63i0eukwc.lambda-url.us-west-1.on.aws', {
                                 method: 'POST',
                                 mode: 'cors',
                                 body: JSON.stringify({
@@ -88,7 +88,7 @@ class ShippingOptionsForm extends PureComponent<
                                 {
                                     this.setState({couponApplied: true});
                                     await this.props.checkoutService.removeCoupon(cartId);
-                                    await fetch('http://localhost:3000', {
+                                    await fetch('https://uox63mtruzhalf2xznkjsri63i0eukwc.lambda-url.us-west-1.on.aws', {
                                         method: 'POST',
                                         mode: 'cors',
                                         body: JSON.stringify({
